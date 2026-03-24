@@ -4,11 +4,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [Header("Objetivos")]
-    public bool objetivoSocket = false;
-    // adicione mais conforme precisar:
-    // public bool objetivoB = false;
-    // public bool objetivoC = false;
+    [Header("Objectives")]
+    public bool backpackSocket = false;
+    public bool booksSocket = false;
+    public bool quiltSocket = false;
+    public bool trashbagSocket = false;
 
     private void Awake()
     {
@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    public bool TodosObjetivosConcluidos()
+    public bool AllObjectivesCompleted()
     {
-        return objetivoSocket; // && objetivoB && objetivoC;
+        return backpackSocket && booksSocket && quiltSocket && trashbagSocket;
     }
 }
