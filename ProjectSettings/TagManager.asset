@@ -9,6 +9,10 @@ TagManager:
   - BooksTag
   - TrashBagTag
   - PlayerTag
+  - RedTag
+  - BlueTag
+  - GreenTag
+  - YellowTag
   layers:
   - Default
   - TransparentFX

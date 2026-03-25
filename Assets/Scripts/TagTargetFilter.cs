@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class TagTargetFilter : XRBaseTargetFilter
 {
-    [SerializeField] private string tagPermitida;
+    [SerializeField] public string allowedTag;
 
     public override void Process(IXRInteractor interactor, List<IXRInteractable> targets, List<IXRInteractable> results)
     {
@@ -14,7 +14,7 @@ public class TagTargetFilter : XRBaseTargetFilter
 
         foreach (var interactable in targets)
         {
-            if (interactable.transform.CompareTag(tagPermitida))
+            if (interactable.transform.CompareTag(allowedTag))
             {
                 results.Add(interactable);
             }

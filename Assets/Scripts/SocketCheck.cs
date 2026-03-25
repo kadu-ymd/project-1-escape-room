@@ -5,7 +5,9 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 public class SocketChecker : MonoBehaviour
 {
     [SerializeField] private XRSocketInteractor socket;
-    [SerializeField] private DoorController porta;
+    [SerializeField] private DoorController doorController;
+    [SerializeField] private string expectedTag;
+    [SerializeField] private string objectiveIdentifier;
 
     private void OnEnable()
     {
@@ -23,37 +25,30 @@ public class SocketChecker : MonoBehaviour
     {
         GameObject attachedObject = (args.interactableObject as MonoBehaviour)?.gameObject;
 
-        if (attachedObject.CompareTag("BackpackTag"))
-            GameManager.Instance.backpackSocket = true;
-        else if (attachedObject.CompareTag("BooksTag"))
-            GameManager.Instance.booksSocket = true;
-        else if (attachedObject.CompareTag("QuiltTag"))
-            GameManager.Instance.quiltSocket = true;
-        else if (attachedObject.CompareTag("TrashBagTag"))
-            GameManager.Instance.trashbagSocket = true;
-
-        ExitCheck();
+        if (attachedObject.CompareTag(expectedTag))
+        {
+            GameManager.Instance.SetObjective(objectiveIdentifier, true);
+            Debug.Log($"Objective {objectiveIdentifier} completed!");
+            ExitCheck();
+        }
     }
 
     private void OnDettach(SelectExitEventArgs args)
     {
         GameObject attachedObject = (args.interactableObject as MonoBehaviour)?.gameObject;
 
-        if (attachedObject.CompareTag("BackpackTag"))
-            GameManager.Instance.backpackSocket = false;
-        else if (attachedObject.CompareTag("BooksTag"))
-            GameManager.Instance.booksSocket = false;
-        else if (attachedObject.CompareTag("QuiltTag"))
-            GameManager.Instance.quiltSocket = false;
-        else if (attachedObject.CompareTag("TrashBagTag"))
-            GameManager.Instance.trashbagSocket = false;
+        if (attachedObject.CompareTag(expectedTag))
+        {
+            GameManager.Instance.SetObjective(objectiveIdentifier, false);
+        }
     }
 
     private void ExitCheck()
     {
         if (GameManager.Instance.AllObjectivesCompleted())
         {
-            porta.OpenDoor();
+            Debug.Log("All objectives completed! Opening the door...");
+            doorController.OpenDoor();
         }
     }
 }
