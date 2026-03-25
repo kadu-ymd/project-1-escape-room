@@ -17,6 +17,7 @@ public class DoorController : MonoBehaviour
     public void OpenDoor()
     {
         DoorUnlock();
+        gameObject.SetActive(false);
     }
 
     private void DoorLock()
